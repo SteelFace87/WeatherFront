@@ -1,5 +1,5 @@
 import React from "react";
 
-const FirebaseContext = React.createContext(null) as any;
+const FirebaseContext = React.createContext(null);
 
 export default FirebaseContext;

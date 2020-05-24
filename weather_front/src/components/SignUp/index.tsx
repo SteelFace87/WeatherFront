@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { error } from "console";
 import { FirebaseContext } from "../Firebase";
+import { useFirebaseContext } from "../../contexts/firebaseContext";
 
 interface Props {
   firebase: any;
@@ -12,20 +13,19 @@ interface Props {
 const SignUpPage = () => (
   <div>
     <h1>SignUp</h1>
-
-    <FirebaseContext.Consumer>
-      {(firebase: any) => <SignUpForm firebase={firebase} />}
-    </FirebaseContext.Consumer>
+    <SignUpForm />}
   </div>
 );
 
-const SignUpForm = ({ firebase }: Props) => {
+const SignUpForm = () => {
   const [initialState, setInitialState] = useState({});
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [passwordOne, setPasswordOne] = useState("");
   const [passwordTwo, setPasswordTwo] = useState("");
   const [error, setError] = useState(new Error());
+
+  const firebase = useFirebaseContext();
 
   const isInvalid =
     passwordOne !== passwordTwo ||
@@ -34,6 +34,7 @@ const SignUpForm = ({ firebase }: Props) => {
     username === "";
 
   const handleSignUp = () => {
+    // @ts-ignore
     firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser: any) => {
