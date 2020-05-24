@@ -1,5 +1,11 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import Navigation from "../Navigation";
 
 export const App = () => {
-  return <h1>Welcome to Weather App!!</h1>;
+  return (
+    <Router>
+      <Navigation />
+    </Router>
+  );
 };
