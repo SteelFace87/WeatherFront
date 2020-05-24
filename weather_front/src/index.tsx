@@ -7,7 +7,6 @@ import Firebase, { FirebaseContext } from "./components/Firebase";
 
 ReactDOM.render(
   <React.StrictMode>
-    // @ts-ignore
     <FirebaseContext.Provider value={new Firebase()}>
       <App />
     </FirebaseContext.Provider>

@@ -9,6 +9,7 @@ import SignUpPage from "../SignUp";
 // import AccountPage from '../Account';
 // import AdminPage from '../Admin';
 import * as ROUTES from "../../constants/routes";
+import SignInPage from "../SignIn";
 
 export const App = () => {
   return (
@@ -16,7 +17,8 @@ export const App = () => {
       <Navigation />
       {/* <Route exact path={ROUTES.LANDING} component={LandingPage} /> */}
       <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-      {/* <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+      <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+      {/*
       <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
       <Route path={ROUTES.HOME} component={HomePage} />
       <Route path={ROUTES.ACCOUNT} component={AccountPage} />

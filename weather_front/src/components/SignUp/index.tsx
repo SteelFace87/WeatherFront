@@ -1,9 +1,8 @@
 import React, { Component, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import * as ROUTES from "../../constants/routes";
-import { error } from "console";
-import { FirebaseContext } from "../Firebase";
+
 import { useFirebaseContext } from "../../contexts/firebaseContext";
 
 interface Props {
@@ -13,11 +12,11 @@ interface Props {
 const SignUpPage = () => (
   <div>
     <h1>SignUp</h1>
-    <SignUpForm />}
+    <SignUpFormWithRouter />}
   </div>
 );
 
-const SignUpForm = () => {
+const SignUpForm = ({ history }: any) => {
   const [initialState, setInitialState] = useState({});
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -39,7 +38,9 @@ const SignUpForm = () => {
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser: any) => {
         setInitialState(authUser);
+        history.push(ROUTES.HOME);
       })
+
       .catch((error: React.SetStateAction<Error>) => {
         console.log("error", error);
         setError(error);
@@ -66,24 +67,25 @@ const SignUpForm = () => {
         name="password one"
         value={passwordOne}
         onChange={(e) => setPasswordOne(e.target.value)}
-        type="text"
+        type="password"
         placeholder="password"
       />
       <input
         name="password two"
         value={passwordTwo}
         onChange={(e) => setPasswordTwo(e.target.value)}
-        type="text"
+        type="password"
         placeholder="retype password"
       />
       <button disabled={isInvalid} type="submit" onClick={handleSignUp}>
         Sign Up
       </button>
-
       {error && <p>{error?.message}</p>}
     </div>
   );
 };
+
+const SignUpFormWithRouter = withRouter(SignUpForm);
 
 const SignUpLink = () => (
   <p>
