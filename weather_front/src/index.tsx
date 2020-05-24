@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
 import { App } from "./components/App/App";
 import * as serviceWorker from "./serviceWorker";
 import Firebase, { FirebaseContext } from "./components/Firebase";
+import { AuthContextProvider } from "./contexts/auth";
 
 ReactDOM.render(
   <React.StrictMode>
     <FirebaseContext.Provider value={new Firebase()}>
-      <App />
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
     </FirebaseContext.Provider>
   </React.StrictMode>,
   document.getElementById("root")

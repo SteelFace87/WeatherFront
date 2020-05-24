@@ -3,33 +3,40 @@ import { Link } from "react-router-dom";
 
 import * as ROUTES from "../../constants/routes";
 import SignOutButton from "../SignOut";
+import { useAuthContext } from "../../contexts/auth";
 
-const Navigation = () => (
-  <div>
-    <ul>
-      <li>
-        <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-      </li>
-      <li>
-        <Link to={ROUTES.LANDING}>Landing</Link>
-      </li>
-      <li>
-        <Link to={ROUTES.HOME}>Home</Link>
-      </li>
-      <li>
-        <Link to={ROUTES.ACCOUNT}>Account</Link>
-      </li>
-      <li>
-        <Link to={ROUTES.ADMIN}>Admin</Link>
-      </li>
-      <li>
-        <Link to={ROUTES.SIGN_UP}>Sign Up </Link>
-      </li>
-      <li>
-        <SignOutButton />
-      </li>
-    </ul>
-  </div>
-);
+const Navigation = () => {
+  const [auth] = useAuthContext();
+
+  return (
+    <div>
+      <ul>
+        <li>
+          <Link to={ROUTES.SIGN_IN}>Sign In</Link>
+        </li>
+        <li>
+          <Link to={ROUTES.LANDING}>Landing</Link>
+        </li>
+        <li>
+          <Link to={ROUTES.HOME}>Home</Link>
+        </li>
+        <li>
+          <Link to={ROUTES.ACCOUNT}>Account</Link>
+        </li>
+        <li>
+          <Link to={ROUTES.ADMIN}>Admin</Link>
+        </li>
+        <li>
+          <Link to={ROUTES.SIGN_UP}>Sign Up </Link>
+        </li>
+        {auth && (
+          <li>
+            <SignOutButton />
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+};
 
 export default Navigation;

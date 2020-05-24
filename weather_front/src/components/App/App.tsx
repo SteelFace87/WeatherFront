@@ -10,16 +10,37 @@ import SignUpPage from "../SignUp";
 // import AdminPage from '../Admin';
 import * as ROUTES from "../../constants/routes";
 import SignInPage from "../SignIn";
+import { useAuthContext } from "../../contexts/auth";
+import { useFirebaseContext } from "../../contexts/firebaseContext";
+import { useEffect } from "react";
+import PasswordForgetPage from "../PasswordForget";
 
 export const App = () => {
+  const [_, setAuth] = useAuthContext();
+  const firebase = useFirebaseContext();
+
+  useEffect(() => {
+    // @ts-ignore
+    const removeListener: Function = firebase.auth.onAuthStateChanged(
+      (authUser: any) => {
+        setAuth(authUser);
+      }
+    );
+
+    return () => {
+      console.log("removing listener");
+      removeListener();
+    };
+  }, []);
+
   return (
     <Router>
       <Navigation />
       {/* <Route exact path={ROUTES.LANDING} component={LandingPage} /> */}
       <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
       <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-      {/*
       <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+      {/*
       <Route path={ROUTES.HOME} component={HomePage} />
       <Route path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route path={ROUTES.ADMIN} component={AdminPage} /> */}
